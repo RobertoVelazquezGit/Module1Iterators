@@ -74,8 +74,21 @@ public:
         std::cout << "  Sorted 1000 elements in: " << sortTime << " ms" << std::endl;
 
         // Binary search (requires random access for efficiency)
-        bool found = std::binary_search(sortableData.begin(), sortableData.end(), 500);
+		bool found = std::binary_search(sortableData.begin(), sortableData.end(), 500);// dicotomic search for 500 in sorted data   
         std::cout << "  Binary search for 500: " << (found ? "found" : "not found") << std::endl;
+
+        // Binary search only makes sense for containers with random access iterators:
+        // - std::vector
+        // - std::deque
+        // - std::array
+        //
+        // Not recommended for:
+        // - std::list
+        // - std::forward_list
+        //
+        // Although std::binary_search compiles with list and forward_list,
+        // it loses its logarithmic efficiency because those containers
+        // do not provide constant-time random access.
 
         // Deque comparison
         std::cout << "\nDeque Random Access (similar to vector):" << std::endl;
@@ -149,6 +162,8 @@ public:
         // --forwardIt;  // Error: no operator-- for forward iterator
 
         // Single-pass algorithms work well
+		// single-pass means we can only traverse the container once, and we cannot go back to previous elements.
+        // This is ideal for algorithms that process data in a streaming fashion or when we want to minimize memory usage.   
         int sum = 0;
         double singlePassTime = measureTime([&]() {
             sum = std::accumulate(forwardListData.begin(), forwardListData.end(), 0);
@@ -233,10 +248,10 @@ public:
         std::cout << "  (Only possible with random access iterators)" << std::endl;
 
         std::cout << "\nPerformance Insights:" << std::endl;
-        std::cout << "• Vector/Deque: Fastest sequential access due to cache locality" << std::endl;
-        std::cout << "• List: Slower due to pointer chasing, but efficient insertion/deletion" << std::endl;
-        std::cout << "• Forward List: Memory efficient, good for single-pass algorithms" << std::endl;
-        std::cout << "• Random access dramatically faster than sequential search for specific elements" << std::endl;
+        std::cout << "- Vector/Deque: Fastest sequential access due to cache locality" << std::endl;
+        std::cout << "- List: Slower due to pointer chasing, but efficient insertion/deletion" << std::endl;
+        std::cout << "- Forward List: Memory efficient, good for single-pass algorithms" << std::endl;
+        std::cout << "- Random access dramatically faster than sequential search for specific elements" << std::endl;
     }
 };
 
