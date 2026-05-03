@@ -132,6 +132,13 @@ public:
         std::mt19937 gen(rd());
 
         // Mix of different distributions
+        // Generates values following a normal (Gaussian) distribution centered at 50.0 
+        // with a standard deviation of 15.0 (spread around the mean)
+        // Normal (Gaussian) distribution with mean = 50.0 and standard deviation = 15.0.
+        // According to the 68-95-99.7 rule:
+        // ~68% of values lie within [35, 65]   (±1σ)
+        // ~95% of values lie within [20, 80]   (±2σ)
+        // ~99.7% of values lie within [5, 95]  (±3σ)
         std::normal_distribution<double> normal(50.0, 15.0);
         std::uniform_int_distribution<int> uniform(1, 100);
 
@@ -168,9 +175,9 @@ public:
         IsInRange lowRange(1, 25);
         IsInRange highRange(75, 100);
 
-        int normalCount = std::count_if(dataset.begin(), dataset.end(), normalRange);
-        int lowCount = std::count_if(dataset.begin(), dataset.end(), lowRange);
-        int highCount = std::count_if(dataset.begin(), dataset.end(), highRange);
+        /*int*/ auto normalCount = std::count_if(dataset.begin(), dataset.end(), normalRange);
+        /*int*/ auto lowCount = std::count_if(dataset.begin(), dataset.end(), lowRange);
+        /*int*/ auto highCount = std::count_if(dataset.begin(), dataset.end(), highRange);
 
         std::cout << "  Normal range (25-75): " << normalCount << " elements ("
             << std::fixed << std::setprecision(1)
@@ -182,7 +189,7 @@ public:
 
         // Demonstrate reusability by changing range
         normalRange.setRange(30, 70);
-        int newNormalCount = std::count_if(dataset.begin(), dataset.end(), normalRange);
+        /*int*/ auto newNormalCount = std::count_if(dataset.begin(), dataset.end(), normalRange);
         std::cout << "  Adjusted range (30-70): " << newNormalCount << " elements" << std::endl;
     }
 
@@ -193,7 +200,9 @@ public:
         double sum = std::accumulate(dataset.begin(), dataset.end(), 0.0);
         double mean = sum / dataset.size();
 
-        double variance = std::accumulate(dataset.begin(), dataset.end(), 0.0,
+        // 0.0 is the initial value for the accumulator and the type of the accumulator is double,
+        // which allows us to calculate the variance with floating-point precision. 
+		double variance = std::accumulate(dataset.begin(), dataset.end(), 0.0,  
             [mean](double acc, int val) {
                 double diff = val - mean;
                 return acc + diff * diff;
@@ -218,13 +227,13 @@ public:
         auto [minIt, maxIt] = std::minmax_element(normalizedData.begin(), normalizedData.end());
 
         std::cout << "Normalized Data Analysis:" << std::endl;
-        std::cout << "  Normalized mean: " << normalizedMean << " (should be ≈0)" << std::endl;
+        std::cout << "  Normalized mean: " << normalizedMean << " (should be aprox 0)" << std::endl;
         std::cout << "  Range: [" << *minIt << ", " << *maxIt << "]" << std::endl;
 
         // Count values within standard deviations
-        int oneStdDev = std::count_if(normalizedData.begin(), normalizedData.end(),
+        /*int*/ auto oneStdDev = std::count_if(normalizedData.begin(), normalizedData.end(),
             [](double val) { return std::abs(val) <= 1.0; });
-        int twoStdDev = std::count_if(normalizedData.begin(), normalizedData.end(),
+        /*int*/ auto twoStdDev = std::count_if(normalizedData.begin(), normalizedData.end(),
             [](double val) { return std::abs(val) <= 2.0; });
 
         std::cout << "  Within 1 std dev: " << oneStdDev << " ("
@@ -258,6 +267,8 @@ public:
         std::cout << "    Below 30: " << 100.0 * totalBelow30 / totalSum << "%" << std::endl;
         std::cout << "    Equals 42: " << 100.0 * totalEquals42 / totalSum << "%" << std::endl;
     }
+
+    // ToDo
 
     void demonstrateAdvancedFunctionObject() {
         std::cout << "\n=== ADVANCED FUNCTION OBJECT WITH COMPLEX STATE ===" << std::endl;
@@ -319,7 +330,7 @@ public:
         std::cout << "  Stage 2 - Statistical normalization applied" << std::endl;
 
         // Stage 3: Count extreme values (|z| > 2)
-        int extremeCount = std::count_if(normalizedData.begin(), normalizedData.end(),
+        /*int*/ auto extremeCount = std::count_if(normalizedData.begin(), normalizedData.end(),
             [](double val) { return std::abs(val) > 2.0; });
 
         std::cout << "  Stage 3 - Extreme values (|z| > 2): " << extremeCount << std::endl;
