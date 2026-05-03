@@ -79,14 +79,19 @@ public:
     FrequencyCounter() : totalCount(0) {}
 
     void operator()(int value) const {
-        frequencies[value]++;
+        // The very first time we see a value, frequencies[value] will be default-initialized to 0, and then incremented to 1.
+        // For subsequent occurrences, it will just increment the existing count.    
+		frequencies[value]++;  
+		// the const at the end of operator() means we cannot modify member variables directly,
+        // but we can modify the frequencies map because it's declared as mutable.
+        // However, totalCount is not mutable, so we need to cast away constness to modify it.     
 		const_cast<FrequencyCounter*>(this)->totalCount++;  // because totalCount is not mutable, we need to cast away constness to modify it   
     }
 
     // Query methods
     int getFrequency(int value) const {
         auto it = frequencies.find(value);
-        return (it != frequencies.end()) ? it->second : 0;
+		return (it != frequencies.end()) ? it->second : 0;  // (*it).second is another way to write it->second, but using it->second is more concise and common in C++ code  
     }
 
     double getRelativeFrequency(int value) const {
