@@ -203,8 +203,8 @@ public:
         // 0.0 is the initial value for the accumulator and the type of the accumulator is double,
         // which allows us to calculate the variance with floating-point precision. 
 		double variance = std::accumulate(dataset.begin(), dataset.end(), 0.0,  
-            [mean](double acc, int val) {
-                double diff = val - mean;
+			[mean](double acc, int val) {  // mean captured by value in the lambda to use it for variance calculation   
+                double diff = val - mean;  
                 return acc + diff * diff;
             }) / dataset.size();
 
@@ -268,8 +268,6 @@ public:
         std::cout << "    Equals 42: " << 100.0 * totalEquals42 / totalSum << "%" << std::endl;
     }
 
-    // ToDo
-
     void demonstrateAdvancedFunctionObject() {
         std::cout << "\n=== ADVANCED FUNCTION OBJECT WITH COMPLEX STATE ===" << std::endl;
 
@@ -284,7 +282,7 @@ public:
         // Show most frequent values
         auto mostFrequent = counter.getMostFrequent(10);
         std::cout << "  Top 10 most frequent values:" << std::endl;
-        for (const auto& [value, freq] : mostFrequent) {
+		for (const auto& [value, freq] : mostFrequent) { // c++17 structured bindings to unpack the pair of value and frequency 
             std::cout << "    Value " << value << ": " << freq << " times ("
                 << std::fixed << std::setprecision(2)
                 << counter.getRelativeFrequency(value) * 100 << "%)" << std::endl;
@@ -292,7 +290,7 @@ public:
 
         // Query specific values
         std::cout << "  Specific value frequencies:" << std::endl;
-        for (int testValue : {42, 77, 50, 1, 100}) {
+		for (int testValue : {42, 77, 50, 1, 100}) {  // it is std::initializer_list<int> to create a list of specific values to query their frequencies 
             int freq = counter.getFrequency(testValue);
             if (freq > 0) {
                 std::cout << "    Value " << testValue << ": " << freq << " times" << std::endl;
@@ -309,7 +307,8 @@ public:
         // Stage 1: Filter values in normal range
         IsInRange normalRange(30, 70);
         std::vector<int> filteredData;
-        std::copy_if(dataset.begin(), dataset.end(), std::back_inserter(filteredData), normalRange);
+        //copy_if need to specify the output iterator, so we use back_inserter to append to filteredData vector
+		std::copy_if(dataset.begin(), dataset.end(), std::back_inserter(filteredData), normalRange);  
 
         std::cout << "  Stage 1 - Filtered to normal range: " << filteredData.size()
             << " elements" << std::endl;
