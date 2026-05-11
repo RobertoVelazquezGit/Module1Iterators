@@ -26,7 +26,7 @@ public:
     ScaleValue(double f) : factor(f) {}
 
     template<typename T>
-    auto operator()(T value) const -> decltype(value* factor) {
+	auto operator()(T value) const -> decltype(value* factor) {  // trailing return type to deduce the return type based on the input type and factor   
         return static_cast<decltype(value * factor)>(value * factor);
     }
 };
@@ -215,7 +215,10 @@ public:
             std::vector<double> scaled(filtered.size());
             std::transform(filtered.begin(), filtered.end(), scaled.begin(), scaler);
 
-            auto result = std::accumulate(scaled.begin(), scaled.begin() + std::min(1000ul, scaled.size()), 0.0);
+            auto takeCount = std::min(scaled.size(), size_t{ 10 });
+
+            //auto result = std::accumulate(scaled.begin(), scaled.begin() + std::min(1000ul, scaled.size()), 0.0);
+            auto result = std::accumulate(scaled.begin(), scaled.begin() + std::min(size_t{ 1000 }, scaled.size()), 0.0);
             volatile double sink = result; // Prevent optimization
             });
 
