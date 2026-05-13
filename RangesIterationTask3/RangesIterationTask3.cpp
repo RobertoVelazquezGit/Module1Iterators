@@ -18,6 +18,7 @@ namespace views = std::views;
 #endif
 
 // Function objects compatible with both traditional STL and ranges
+/*
 class ScaleValue {
 private:
     double factor;
@@ -28,6 +29,28 @@ public:
     template<typename T>
 	auto operator()(T value) const -> decltype(value* factor) {  // trailing return type to deduce the return type based on the input type and factor   
         return static_cast<decltype(value * factor)>(value * factor);
+    }
+};
+*/
+
+class ScaleValue {
+private:
+    double factor;  // Scaling factor applied to the input value
+
+public:
+    // Constructor initializes the scaling factor
+    explicit ScaleValue(double f) : factor(f) {}
+
+    // Function call operator (functor)
+    // The return type is automatically deduced by the compiler (C++14+)
+    template<typename T>
+    auto operator()(T value) const {
+        // The expression value * factor determines the return type
+        // For example:
+        //   int * double   -> double
+        //   float * double -> double
+        //   double * double -> double
+        return value * factor;
     }
 };
 
