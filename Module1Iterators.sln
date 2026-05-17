@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FunctionObjectsTask2", "Fun
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RangesIterationTask3", "RangesIterationTask3\RangesIterationTask3.vcxproj", "{61359C78-9857-4BEA-A884-C1EE52687AAD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IteratorFunctionObjectDataProcTask4", "IteratorFunctionObjectDataProcTask4\IteratorFunctionObjectDataProcTask4.vcxproj", "{AA76A0DB-6AC7-4976-A202-EB12A798357D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{61359C78-9857-4BEA-A884-C1EE52687AAD}.Release|x64.Build.0 = Release|x64
 		{61359C78-9857-4BEA-A884-C1EE52687AAD}.Release|x86.ActiveCfg = Release|Win32
 		{61359C78-9857-4BEA-A884-C1EE52687AAD}.Release|x86.Build.0 = Release|Win32
+		{AA76A0DB-6AC7-4976-A202-EB12A798357D}.Debug|x64.ActiveCfg = Debug|x64
+		{AA76A0DB-6AC7-4976-A202-EB12A798357D}.Debug|x64.Build.0 = Debug|x64
+		{AA76A0DB-6AC7-4976-A202-EB12A798357D}.Debug|x86.ActiveCfg = Debug|Win32
+		{AA76A0DB-6AC7-4976-A202-EB12A798357D}.Debug|x86.Build.0 = Debug|Win32
+		{AA76A0DB-6AC7-4976-A202-EB12A798357D}.Release|x64.ActiveCfg = Release|x64
+		{AA76A0DB-6AC7-4976-A202-EB12A798357D}.Release|x64.Build.0 = Release|x64
+		{AA76A0DB-6AC7-4976-A202-EB12A798357D}.Release|x86.ActiveCfg = Release|Win32
+		{AA76A0DB-6AC7-4976-A202-EB12A798357D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
