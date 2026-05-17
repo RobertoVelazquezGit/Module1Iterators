@@ -250,8 +250,12 @@ public:
             auto pipeline = largeData
                 | views::filter(multiplesOf5)
                 | views::transform(scaler)
-                | views::take(1000);
+				| views::take(1000);  // 1000 at the most to keep it comparable with traditional approach   
             auto common_pipeline = pipeline | std::views::common;
+			// common_pipeline is needed to use std::accumulate because ranges views return a view type that may not be
+            // directly compatible with algorithms expecting iterators.
+            // By using std::views::common, we can convert the view into a common range that provides standard iterators,
+            // allowing us to use std::accumulate without issues.  
             auto result = std::accumulate(common_pipeline.begin(), common_pipeline.end(), 0.0);
             volatile double sink = result; // Prevent optimization
             });
@@ -263,10 +267,10 @@ public:
         std::cout << "  Performance ratio: " << (traditionalTime / rangesTime) << "x" << std::endl;
 
         std::cout << "\nRanges advantages:" << std::endl;
-        std::cout << "• Lazy evaluation reduces memory allocations" << std::endl;
-        std::cout << "• Single-pass processing when possible" << std::endl;
-        std::cout << "• No intermediate containers needed" << std::endl;
-        std::cout << "• More expressive and composable code" << std::endl;
+        std::cout << "- Lazy evaluation reduces memory allocations" << std::endl;
+        std::cout << "- Single-pass processing when possible" << std::endl;
+        std::cout << "- No intermediate containers needed" << std::endl;
+        std::cout << "- More expressive and composable code" << std::endl;
     }
 #else
     void demonstrateNoRangesAvailable() {
