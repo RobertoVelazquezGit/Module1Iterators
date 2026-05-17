@@ -203,6 +203,7 @@ public:
 
         // Use AddValue with std::transform on listData
         list<int> incrementedList;
+		// incrementedList is empty, so we use back_inserter to add elements as we transform   
         transform(listData.begin(), listData.end(), back_inserter(incrementedList), incrementer);
 
         cout << "\nApplied incrementer function object to list:" << endl;
@@ -223,6 +224,8 @@ public:
         cout << "- Type-safe and efficient (inline during compilation)" << endl;
         cout << "- Clear, readable code with meaningful names" << endl;
     }
+
+    //ToDo
 
     /**
      * GRADED CHALLENGE 3 - COMPLETED
