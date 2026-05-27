@@ -225,7 +225,7 @@ public:
         cout << "- Clear, readable code with meaningful names" << endl;
     }
 
-    //ToDo
+    
 
     /**
      * GRADED CHALLENGE 3 - COMPLETED
@@ -324,6 +324,8 @@ public:
         cout << "- Forward List: Minimal memory overhead, forward-only access limitation" << endl;
         cout << "- Random access is only available with vector and provides significant speed benefits" << endl;
     }
+
+    // ToDo
 
     /**
      * GRADED CHALLENGE 5 - COMPLETED
@@ -469,6 +471,10 @@ VALIDATION CHECKLIST COMPLETED:
  * Description: Program entry point demonstrating complete iterator and function object processing
  */
 int main() {
+
+	uint32_t n = sizeof(long long); 
+    n += 1;
+
     cout << "=== Iterator and Function Object Data Processing ===" << endl;
     cout << "Demonstrating iterator categories and function objects\n" << endl;
 
