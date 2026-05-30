@@ -347,7 +347,8 @@ public:
         // Stage 3 - Filter even numbers from the doubled results
         IsEven evenChecker;
         vector<int> evenDoubledPositives;
-        copy_if(doubledPositives.begin(), doubledPositives.end(), back_inserter(evenDoubledPositives), evenChecker);
+        // back_inserter to empty vector  
+		copy_if(doubledPositives.begin(), doubledPositives.end(), back_inserter(evenDoubledPositives), evenChecker);  
 
         // Stage 4 - Calculate statistics using accumulate
         /*int*/auto finalSum = accumulate(evenDoubledPositives.begin(), evenDoubledPositives.end(), 0);
@@ -374,6 +375,7 @@ public:
         // Alternative approach using list for comparison
         cout << "\nAlternative processing using list (bidirectional iterators):" << endl;
         list<int> listResult;
+		// back_inserter to empty list
         copy_if(listData.begin(), listData.end(), back_inserter(listResult), positiveChecker);
 
         list<int> listDoubled;
